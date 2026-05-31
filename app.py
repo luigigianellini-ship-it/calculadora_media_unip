@@ -2,9 +2,9 @@ from flask import Flask, render_template, request, session
 import funcoes
 
 app = Flask(__name__)
-app.secret_key = "senha_super_secreta"
+app.secret_key = "senha_secreta"
 @app.route("/", methods=["GET", "POST"])
-def home():
+def pagina_inicial():
     if "historico" not in session:
         session["historico"] = []
 
