@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de Média</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <h1>Calculadora de Média</h1>
+
+        {% if resultado is not none %}
+            <div class="resultado">
+                Resultado: {{ resultado }}
+            </div>
+        {% endif %}
+
+        <section class="card">
+            <h2>Calcular Média</h2>
+            <form method="POST">
+                <input type="hidden" name="acao" value="media">
+
+                <label>NP1</label>
+                <input type="number" step="0.01" min="0" max="10" name="np1" required>
+
+                <label>NP2</label>
+                <input type="number" step="0.01" min="0" max="10" name="np2" required>
+
+                <label>PIM</label>
+                <input type="number" step="0.01" min="0" max="10" name="pim" required>
+
+                <button type="submit">Calcular Média</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Especular Nota do PIM</h2>
+            <form method="POST">
+                <input type="hidden" name="acao" value="pim">
+
+                <label>NP1</label>
+                <input type="number" step="0.01" min="0" max="10" name="np1" required>
+
+                <label>NP2</label>
+                <input type="number" step="0.01" min="0" max="10" name="np2" required>
+
+                <button type="submit">Calcular PIM Necessário</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Calcular Exame</h2>
+            <form method="POST">
+                <input type="hidden" name="acao" value="exame">
+
+                <label>Média Semestral</label>
+                <input type="number" step="0.01" min="0" max="10" name="media" required>
+
+                <label>Nota do Exame</label>
+                <input type="number" step="0.01" min="0" max="10" name="exame" required>
+
+                <button type="submit">Calcular Recuperação</button>
+            </form>
+        </section>
+        <section class="card">
+    <h2>Histórico de Resultados</h2>
+
+    {% if historico %}
+        {% for registro in historico|reverse %}
+            <div class="historico-item">
+
+                {% if registro.tipo == "Média" %}
+                    <h3>📊 {{ registro.tipo }}</h3>
+                    <p><strong>NP1:</strong> {{ registro.NP1 }}</p>
+                    <p><strong>NP2:</strong> {{ registro.NP2 }}</p>
+                    <p><strong>PIM:</strong> {{ registro.PIM }}</p>
+                    <p class="resultado-historico">
+                        <strong>Resultado:</strong> {{ registro.Resultado }}
+                    </p>
+
+                {% elif registro.tipo == "Especulação PIM" %}
+                    <h3>🎯 {{ registro.tipo }}</h3>
+                    <p><strong>NP1:</strong> {{ registro.NP1 }}</p>
+                    <p><strong>NP2:</strong> {{ registro.NP2 }}</p>
+                    <p class="resultado-historico">
+                        <strong>Resultado:</strong> {{ registro.Resultado }}
+                    </p>
+
+                {% elif registro.tipo == "Exame" %}
+                    <h3>📝 {{ registro.tipo }}</h3>
+                    <p><strong>Média:</strong> {{ registro['Média'] }}</p>
+                    <p><strong>Exame:</strong> {{ registro.Exame }}</p>
+                    <p class="resultado-historico">
+                        <strong>Resultado:</strong> {{ registro.Resultado }}
+                    </p>
+                {% endif %}
+
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Nenhum cálculo realizado ainda.</p>
+    {% endif %}
+</section>
+    </main>
+</body>
+</html>
