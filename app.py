@@ -56,6 +56,7 @@ def home():
             session["historico"] = historico
         elif acao == "limpar":
             session["historico"] = []
+            historico = []
     return render_template("index.html", resultado=resultado, historico=historico)
 if __name__ == "__main__":
     app.run(debug=True)

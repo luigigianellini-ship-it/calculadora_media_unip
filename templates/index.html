@@ -60,12 +60,14 @@
                 <input type="number" step="0.01" min="0" max="10" name="exame" required>
 
                 <button type="submit">Calcular Recuperação</button>
-            <form method="POST">
-                <button name="acao" value="limpar">Limpar Histórico</button>
             </form>
         </section>
         <section class="card">
     <h2>Histórico de Resultados</h2>
+    <form method="POST">
+        <input type="hidden" name="acao" value="limpar">
+        <button type="submit">Limpar Histórico</button>
+    </form>
 
     {% if historico %}
         {% for registro in historico|reverse %}
