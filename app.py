@@ -42,6 +42,10 @@ def home():
             exame = float(request.form["exame"])
 
             resultado = funcoes.exame(media, exame)
+            if resultado >= 5:
+                resultado = "Aprovado"
+            else:
+                resultado = "Reprovado"
             historico.append({
     "tipo": "Exame",
     "Média": media,
