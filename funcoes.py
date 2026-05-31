@@ -1,4 +1,3 @@
-
 c = {
     "limpa": "\033[m",
     "erro": "\033[1;31m", #vermelho
@@ -7,45 +6,6 @@ c = {
     "info": "\033[1;34m", #lilas
     "roxo": "\033[1;35m" #roxo mais pra rosa =/
 }
-def leiaInt(msg):
-    try:
-        return int(input(msg))
-    except (ValueError, TypeError):
-        print(f"{c["erro"]}Digite apenas numeros inteiros!{c["limpa"]}")
-        raise ValueError 
-
-def leiaFloat(msg):
-    while True:
-        try:
-            pergunta = input(msg).replace(",", ".").strip()
-            numero = float(pergunta)
-            if numero > 10 or numero < 0:
-                print(f"{c["erro"]}Digite notas entre 0 e 10!{c["limpa"]}")
-            else:
-                return numero
-        except (ValueError, TypeError):
-            print(f"{c["erro"]}Digite apenas numeros inteiros!{c["limpa"]}")
-            continue
-    
-def linha(tam = 50):
-    print(f"{"-" * tam}")
-
-def cabecalho(msg, tam=50):
-    linha()
-    print(f"{msg}".center(tam))
-    linha()
-def menu(lista):
-    while True:
-        try:
-            cabecalho("MENU PRINCIPAL")
-            contador = 1
-            for item in lista:
-                print(f"{c["alerta"]}{contador}{c["limpa"]} -  {c["roxo"]}{item}{c["limpa"]}")
-                contador += 1
-            opcao = leiaInt("Sua opcao: ")
-            return opcao
-        except:
-            continue
 def media(np1, np2, pim=0):
     try:
         resultado = ((np1 + np2)/2) * 0.8 + pim * 0.2
@@ -74,7 +34,6 @@ def especular(np1, np2):
                     return valor_pim
     except:
         return f"{c['erro']}ERRO ao especular {c['limpa']}"
-
 def exame(media=0, exame=0):
     try:
         return (media + exame)/2

@@ -2,15 +2,12 @@ from flask import Flask, render_template, request
 import funcoes
 
 app = Flask(__name__)
-historico = []
-
 @app.route("/", methods=["GET", "POST"])
 def home():
+    historico = []
     resultado = None
-
     if request.method == "POST":
         acao = request.form.get("acao")
-
         if acao == "media":
             np1 = float(request.form["np1"])
             np2 = float(request.form["np2"])
@@ -24,7 +21,6 @@ def home():
     "PIM": pim,
     "Resultado": resultado
 })
-
         elif acao == "pim":
             np1 = float(request.form["np1"])
             np2 = float(request.form["np2"])
@@ -36,7 +32,6 @@ def home():
     "NP2": np2,
     "Resultado": resultado
 })
-
         elif acao == "exame":
             media = float(request.form["media"])
             exame = float(request.form["exame"])
@@ -53,8 +48,6 @@ def home():
     "Resultado": resultado
 })
             
-
     return render_template("index.html", resultado=resultado, historico=historico)
-
 if __name__ == "__main__":
     app.run(debug=True)
