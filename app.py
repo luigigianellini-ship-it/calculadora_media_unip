@@ -1,10 +1,14 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 import funcoes
 
 app = Flask(__name__)
+app.secret_key = "senha_super_secreta"
 @app.route("/", methods=["GET", "POST"])
 def home():
-    historico = []
+    if "historico" not in session:
+        session["historico"] = []
+
+    historico = session["historico"]
     resultado = None
     if request.method == "POST":
         acao = request.form.get("acao")
@@ -21,6 +25,7 @@ def home():
     "PIM": pim,
     "Resultado": resultado
 })
+            session["historico"] = historico
         elif acao == "pim":
             np1 = float(request.form["np1"])
             np2 = float(request.form["np2"])
@@ -32,6 +37,7 @@ def home():
     "NP2": np2,
     "Resultado": resultado
 })
+            session["historico"] = historico
         elif acao == "exame":
             media = float(request.form["media"])
             exame = float(request.form["exame"])
@@ -47,7 +53,7 @@ def home():
     "Exame": exame,
     "Resultado": resultado
 })
-            
+            session["historico"] = historico
     return render_template("index.html", resultado=resultado, historico=historico)
 if __name__ == "__main__":
     app.run(debug=True)
