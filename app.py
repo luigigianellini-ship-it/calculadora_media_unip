@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, session
 import funcoes
+import secrets
 
 app = Flask(__name__)
-app.secret_key = "senha_secreta"
+app.secret_key = secrets.token_hex(32)
 @app.route("/", methods=["GET", "POST"])
 def pagina_inicial():
     if "historico" not in session:
